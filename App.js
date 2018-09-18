@@ -1,7 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
-import { StyleSheet, View, ImageBackground, Image } from 'react-native';
-import { Container, Header, Content, Footer, FooterTab, Button, Text, Icon, Left, Right, Body, Title } from 'native-base';
+import DateTimePicker from 'react-native-modal-datetime-picker';
+import { StyleSheet, View, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import{ Container, Header, Content, Footer, FooterTab, Button, Text, Icon, Left, Right, Body, Title, Form, Item, Input, DatePicker } from 'native-base';
 
 
 class Screen1 extends React.Component {
@@ -336,8 +337,29 @@ class Screen4 extends React.Component {
 class Screen5 extends React.Component {
 
   state = {
-
+    isDateTimePickerVisible: false,
+    isTimePickerVisible: false,
+    date: '',
+    time: ''
   }
+
+  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+
+  _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+
+  _handleDatePicked = date => {
+    this.setState({ date: date.toLocaleDateString("en-US") });
+    this._hideDateTimePicker();
+  };
+
+  _showTimeTimePicker = () => this.setState({ isTimePickerVisible: true });
+
+  _hideTimeTimePicker = () => this.setState({ isTimePickerVisible: false });
+
+  _handleTimePicked = time => {
+    this.setState({ time: time.toLocaleTimeString() });
+    this._hideTimeTimePicker();
+  };
 
   render() {
     return (
@@ -352,7 +374,7 @@ class Screen5 extends React.Component {
             </Left>
             <Body>
               <View style={{ flexDirection: 'row' }}>
-                <Title style={{ width: 200, color: 'white', fontSize: 18, alignSelf: 'center', marginTop: 3 }}>Product Options</Title>
+                <Title style={{ width: 200, color: 'white', fontSize: 18, alignSelf: 'center', marginTop: 3 }}>Contact</Title>
               </View>
             </Body>
             <Right>
@@ -368,24 +390,159 @@ class Screen5 extends React.Component {
               marginRight: 'auto'
             }}>
               <Text style={{ color: '#0e70a1', fontSize: 30, textAlign: 'center', marginBottom: 100 }}>How can we help?</Text>
-              <Button style={{ backgroundColor: '#EEEDED', width: 360, marginBottom: 25,
-                               elevation: 4,
-                               shadowOffset: { width: 2, height: 2 },
-                               shadowColor: "black",
-                               shadowOpacity: 0.7,
-                               shadowRadius: 1 }}><Text style={{ color: '#595959', fontWeight: 'bold' }}><Icon name="menu" />Personal Loan</Text></Button>
-              <Button style={{ backgroundColor: '#00B35F', width: 360, marginBottom: 25,
-                               elevation: 4,
-                               shadowOffset: { width: 2, height: 2 },
-                               shadowColor: "black",
-                               shadowOpacity: 0.7,
-                               shadowRadius: 1 }}><Text style={{ fontWeight: 'bold' }}><Icon name="menu" style={{ color: 'white' }} />Line of Credit</Text></Button>
-              <Button style={{ backgroundColor: '#4C4C4C', width: 360,
-                               elevation: 4,
-                               shadowOffset: { width: 2, height: 2 },
-                               shadowColor: "black",
-                               shadowOpacity: 0.7,
-                               shadowRadius: 1 }}><Text style={{ fontWeight: 'bold' }}><Icon name="menu" style={{ color: 'white' }} />Low Interest Credit Card</Text></Button>
+              <Form>
+                <Item>
+                  <Input placeholder="Reason for Contact" />
+                </Item>
+                <Item>
+                  <TouchableOpacity onPress={() => { this._showDateTimePicker(); }}>
+                    <Input placeholder="Select Appointment Date" pointerEvents="none" value={this.state.date} />
+                  </TouchableOpacity>
+                  <DateTimePicker
+                    isVisible={this.state.isDateTimePickerVisible}
+                    onConfirm={this._handleDatePicked}
+                    onCancel={this._hideDateTimePicker}
+                  />
+                </Item>
+                <Item last>
+                  <TouchableOpacity onPress={() => { this._showTimeTimePicker(); }}>
+                    <Input placeholder="Select Appointment Time" pointerEvents="none" value={this.state.time} />
+                  </TouchableOpacity>
+                  <DateTimePicker
+                    isVisible={this.state.isTimePickerVisible}
+                    onConfirm={this._handleTimePicked}
+                    onCancel={this._hideTimeTimePicker}
+                    mode="time"
+                  />
+                </Item>
+                <Button style={{ marginTop: 30, backgroundColor: '#00B35F', width: 360, marginBottom: 15 }}><Text style={{ fontWeight: 'bold', marginLeft: 'auto', marginRight: 'auto', color: 'white' }}>Schedule Appointment</Text></Button>
+              </Form>
+            </View>
+          </Content>
+          <Footer>
+            <FooterTab style={styles.footerTab}>
+              <Button>
+                <Icon name='ios-apps-outline' style={{ color: 'white' }} />
+                <Text style={styles.footerTabText}>Accounts</Text>
+              </Button>
+              <Button>
+                <Icon name='ios-apps-outline' style={{ color: 'white' }} />
+                <Text style={styles.footerTabText}>Accounts</Text>
+              </Button>
+              <Button style={{ backgroundColor: '#0D709F', borderRadius: 0 }} active>
+                <Icon name='ios-apps-outline' style={{ color: 'white' }} />
+                <Text style={styles.footerTabText}>Offers</Text>
+              </Button>
+              <Button>
+                <Icon name='ios-document-outline' style={{ color: 'white' }} />
+                <Text style={styles.footerTabText}>Cases</Text>
+              </Button>
+              <Button>
+                <Icon name='ios-mail-outline' style={{ color: 'white' }} />
+                <Text style={styles.footerTabText}>Contact</Text>
+              </Button>
+            </FooterTab>
+          </Footer>
+      </Container>
+    );
+  }
+}
+
+class Screen6 extends React.Component {
+
+  render() {
+    return (
+      <Container>
+
+          <Header style={{ backgroundColor: '#0f92d0' }}>
+            <Left>
+              <Button transparent>
+                <Icon name="ios-arrow-back" style={{ color: 'white' }} />
+      <Text style={{ color: 'white' }}>Back</Text>
+              </Button>
+            </Left>
+            <Body>
+              <View style={{ flexDirection: 'row' }}>
+                <Title style={{ width: 200, color: 'white', fontSize: 18, alignSelf: 'center', marginTop: 3 }}>Contact</Title>
+              </View>
+            </Body>
+            <Right>
+              <Button transparent>
+                <Icon name='search' style={{ color: 'white' }} />
+              </Button>
+            </Right>
+          </Header>
+          <Content padder >
+            <View style={{
+              marginTop: 50,
+              marginLeft: 'auto',
+              marginRight: 'auto'
+            }}>
+              <Text style={{ color: '#0e70a1', fontSize: 30, textAlign: 'center', marginBottom: 20,  marginLeft: 'auto', marginRight: 'auto' }}>Thank you!{`\n`}Your appointment{`\n`}is confirmed.</Text>
+              <Icon name="ios-checkmark-circle" style={{ color: '#00B35F', fontSize: 96, marginLeft: 'auto', marginRight: 'auto' }} />
+            </View>
+          </Content>
+          <Footer>
+            <FooterTab style={styles.footerTab}>
+              <Button>
+                <Icon name='ios-apps-outline' style={{ color: 'white' }} />
+                <Text style={styles.footerTabText}>Accounts</Text>
+              </Button>
+              <Button>
+                <Icon name='ios-apps-outline' style={{ color: 'white' }} />
+                <Text style={styles.footerTabText}>Accounts</Text>
+              </Button>
+              <Button style={{ backgroundColor: '#0D709F', borderRadius: 0 }} active>
+                <Icon name='ios-apps-outline' style={{ color: 'white' }} />
+                <Text style={styles.footerTabText}>Offers</Text>
+              </Button>
+              <Button>
+                <Icon name='ios-document-outline' style={{ color: 'white' }} />
+                <Text style={styles.footerTabText}>Cases</Text>
+              </Button>
+              <Button>
+                <Icon name='ios-mail-outline' style={{ color: 'white' }} />
+                <Text style={styles.footerTabText}>Contact</Text>
+              </Button>
+            </FooterTab>
+          </Footer>
+      </Container>
+    );
+  }
+}
+
+class Screen7 extends React.Component {
+
+  render() {
+    return (
+      <Container>
+
+        <Header style={{ backgroundColor: '#0f92d0', height: 90 }}>
+            <Left>
+              <Button transparent>
+                <Icon name="ios-arrow-back" style={{ color: 'white' }} />
+      <Text style={{ color: 'white' }}>Back</Text>
+              </Button>
+            </Left>
+            <Body>
+              <View style={{ flexDirection: 'row' }}>
+                <Title style={{ width: 200, color: 'white', fontSize: 18, alignSelf: 'center', marginTop: 3 }}>FW Dashboard</Title>
+              </View>
+            </Body>
+            <Right>
+              <Button transparent>
+                <Icon name='search' style={{ color: 'white' }} />
+              </Button>
+            </Right>
+          </Header>
+          <Content padder >
+            <View style={{
+              marginTop: 50,
+              marginLeft: 'auto',
+              marginRight: 'auto'
+            }}>
+              <Text style={{ color: '#0e70a1', fontSize: 30, textAlign: 'center', marginBottom: 20,  marginLeft: 'auto', marginRight: 'auto' }}>Thank you!{`\n`}Your appointment{`\n`}is confirmed.</Text>
+              <Icon name="ios-checkmark-circle" style={{ color: '#00B35F', fontSize: 96, marginLeft: 'auto', marginRight: 'auto' }} />
             </View>
           </Content>
           <Footer>
@@ -419,7 +576,7 @@ class Screen5 extends React.Component {
 
 export default createStackNavigator({
   Home: {
-    screen: Screen5,
+    screen: Screen6,
     navigationOptions: {
       header: null
     }
