@@ -373,7 +373,7 @@ class Screen9 extends React.Component {
                 }}>
                 <View style={{ backgroundColor: '#EDEDED', width: '92%', borderRadius: 10, marginLeft: 'auto', marginRight: 'auto', marginTop: 150 }}>
                   <View style={{ padding: 10 }}>
-                    <Text>Create a new goal.</Text>
+                    <Text>Create a new goal.-l</Text>
                   </View>
                 </View>
               </Modal>
