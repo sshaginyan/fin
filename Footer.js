@@ -6,10 +6,6 @@ export default props => {
   return (
     <Footer>
       <FooterTab style={styles.footerTab}>
-        <Button style={props.active === 'goals' ? styles.activeButton : null} active={props.active === 'goals' ? true : false}>
-          <Icon style={styles.icon}>$</Icon>
-          <Text style={styles.footerTabText}>Goals</Text>
-        </Button>
         <Button style={props.active === 'accounts' ? styles.activeButton : null} active={props.active === 'accounts' ? true : false}>
           <Icon name='ios-contacts-outline' style={styles.icon} />
           <Text style={styles.footerTabText}>Accounts</Text>
@@ -17,6 +13,10 @@ export default props => {
         <Button style={props.active === 'offers' ? styles.activeButton : null} active={props.active === 'offers' ? true : false}>
           <Icon name='ios-create-outline' style={styles.icon} />
           <Text style={styles.footerTabText}>Offers</Text>
+        </Button>
+         <Button style={props.active === 'goals' ? styles.activeButton : null} active={props.active === 'goals' ? true : false}>
+          <Icon name="ios-home-outline" style={styles.icon}/>
+          <Text style={styles.footerTabText}>Home</Text>
         </Button>
         <Button style={props.active === 'dashboard' ? styles.activeButton : null} active={props.active === 'dashboard' ? true : false}>
           <Icon name='ios-speedometer-outline' style={styles.icon} />

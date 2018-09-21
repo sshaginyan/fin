@@ -145,8 +145,8 @@ class Screen5 extends React.Component {
                              shadowOpacity: 0.7,
                              shadowRadius: 1 }}>
               <View style={{ flexDirection: 'row' }}>
-                <Icon name="ios-leaf" style={{  color: '#595959', fontSize: 30 }} />
-                <Text style={{ color: '#595959', fontWeight: 'bold', marginTop: 8, fontSize: 20 }}>Cumulus Platinum</Text>
+                <Icon name="ios-home" style={{  color: '#595959', fontSize: 30 }} />
+                <Text style={{ color: '#595959', fontWeight: 'bold', marginTop: 8 }}>Mortgage</Text>
               </View>
 
             </Button>
@@ -157,8 +157,8 @@ class Screen5 extends React.Component {
                              shadowOpacity: 0.7,
                              shadowRadius: 1 }}>
               <View style={{ flexDirection: 'row' }}>
-                <Icon name="md-pulse" style={{ color: 'white', fontSize: 30 }} />
-                <Text style={{ fontWeight: 'bold', marginTop: 8 }}>Cumulus Gold</Text>
+                <Icon name="logo-usd" style={{ color: 'white', fontSize: 30 }} />
+                <Text style={{ fontWeight: 'bold', marginTop: 8 }}>Personal Loan</Text>
               </View>
             </Button>
             <Button style={{ backgroundColor: '#4C4C4C', width: 360, height: 60,
@@ -168,8 +168,8 @@ class Screen5 extends React.Component {
                              shadowOpacity: 0.7,
                              shadowRadius: 1 }}>
               <View style={{ flexDirection: 'row' }}>
-                <Icon name="ios-trophy-outline" style={{ color: 'white', fontSize: 30 }} />
-                <Text style={{ fontWeight: 'bold',  marginTop: 8 }}>Cumulus Silver</Text>
+                <Icon name="ios-car-outline" style={{ color: 'white', fontSize: 30 }} />
+                <Text style={{ fontWeight: 'bold',  marginTop: 8 }}>Auto Loan</Text>
               </View>
             </Button>
           </View>
@@ -364,19 +364,19 @@ class Screen9 extends React.Component {
             >
 
               <Button style={{ marginLeft: 'auto', marginTop: 'auto', marginBottom: 10, marginRight: 10, backgroundColor: 'transparent', borderWidth: 3, borderRadius: 0, borderColor: 'white' }}><Text style={{ fontSize: 12, fontWeight: 'bold' }}>Create New Goal</Text></Button>
-              <Modal
-                animationType="slide"
-                transparent={true}
-                visible={true}
-                onRequestClose={() => {
-                  alert('Modal has been closed.');
-                }}>
-                <View style={{ backgroundColor: '#EDEDED', width: '92%', borderRadius: 10, marginLeft: 'auto', marginRight: 'auto', marginTop: 150 }}>
-                  <View style={{ padding: 10 }}>
-                    <Text>Create a new goal.</Text>
-                  </View>
-                </View>
-              </Modal>
+              {/* <Modal */}
+              {/*   animationType="slide" */}
+              {/*   transparent={true} */}
+              {/*   visible={true} */}
+              {/*   onRequestClose={() => { */}
+              {/*     alert('Modal has been closed.'); */}
+              {/*   }}> */}
+              {/*   <View style={{ backgroundColor: '#EDEDED', width: '92%', borderRadius: 10, marginLeft: 'auto', marginRight: 'auto', marginTop: 150 }}> */}
+              {/*     <View style={{ padding: 10 }}> */}
+              {/*       <Text>Create a new goal.-l</Text> */}
+              {/*     </View> */}
+              {/*   </View> */}
+              {/* </Modal> */}
               <Text style={{ position: 'relative', top: 16, fontSize: 10, marginLeft: 'auto', color: 'white', marginRight: 10 }}>January 4, 2018 - March 31, 2018</Text>
 
 
