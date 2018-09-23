@@ -1,76 +1,22 @@
 import React from 'react';
 import * as shape from 'd3-shape';
-import { createStackNavigator } from 'react-navigation';
+import { StyleSheet } from 'react-native';
 import { StackedAreaChart } from 'react-native-svg-charts';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import { View, ImageBackground, Image, TouchableOpacity, Modal, TouchableHighlight } from 'react-native';
-import{ Container, Content, Button, Text, Icon, Form, Item, Input, DatePicker } from 'native-base';
+import{ Container, Content, Button, Text, Icon, Form, Item, Input, DatePicker, FooterTab, Footer } from 'native-base';
 
-import Footer from './Footer.js';
-import Header from './Header.js';
-
-
-class Screen1 extends React.Component {
-  render() {
-    return (
-      <Container>
-        <ImageBackground source={require('./background.jpg')} style={{ height: '100%', width: '100%' }}>
-          <Header main={true} />
-          <Content padder >
-            <View style={{
-              marginTop: 50,
-              marginLeft: 'auto',
-              marginRight: 'auto'
-            }}>
-              <Text style={{ color: 'white', fontSize: 30, textAlign: 'center' }}>Hi Claire!</Text>
-              <Image source={require('./claire.png')} style={{ width: 200, height: 200, marginTop: 10 }} />
-              <Text style={{ color: 'white', fontSize: 20, textAlign: 'center', marginTop: 30 }}>Welcome back.</Text>
-              <Button style={{ backgroundColor: 'white', borderRadius: 0, marginTop: 50, marginLeft: 'auto', marginRight: 'auto' }}><Text style={{ color: '#3985ae', fontWeight: 'bold' }} >    See Offers    </Text></Button>
-            </View>
-          </Content>
-          <Footer active="offers" />
-        </ImageBackground>
-      </Container>
-    );
-  }
-}
-
-
-class Screen4 extends React.Component {
-
-  render() {
-    return (
-      <Container>
-        <ImageBackground source={require('./background.jpg')} style={{ height: '100%', width: '100%' }}>
-          <Header main={true} />
-          <Content padder >
-            <View style={{
-              marginTop: 50,
-              marginLeft: 'auto',
-              marginRight: 'auto'
-            }}>
-              <Text style={{ color: 'white', fontSize: 30, textAlign: 'center' }}>Hi Claire!</Text>
-              <Image source={require('./claire.png')} style={{ width: 200, height: 200, marginTop: 10, marginLeft: 'auto', marginRight: 'auto' }} />
-              <View style={{ flexDirection: 'row' }}>
-                <Button style={{ width: 170, height: 60, backgroundColor: '#0e7aa1', borderRadius: 0, marginTop: 50, marginLeft: 'auto', marginRight: 5 }}><Text style={{ marginLeft: 'auto', marginRight: 'auto', color: 'white', fontWeight: 'bold', textAlign: 'center' }} >Personal{`\n`}Loan Offers</Text></Button>
-                <Button style={{ backgroundColor: '#0e7aa1', width: 170, height: 60, borderRadius: 0, marginTop: 50, marginLeft: 5, marginRight: 'auto' }}><Text style={{ marginLeft: 'auto', marginRight: 'auto', color: 'white', fontWeight: 'bold', textAlign: 'center' }} >Loan{'\n'}Calculator</Text></Button>
-              </View>
-              <View style={{ flexDirection: 'row' }}>
-                <Button style={{ width: 170, height: 60, backgroundColor: '#0e7aa1', borderRadius: 0, marginTop: 10, marginLeft: 'auto', marginRight: 5 }}><Text style={{ color: 'white', marginLeft: 'auto', marginRight: 'auto', fontWeight: 'bold', textAlign: 'center' }} >Loan{`\n`}Use Cases</Text></Button>
-                <Button style={{ width: 170, height: 60, backgroundColor: '#0e7aa1', borderRadius: 0, marginTop: 10, marginLeft: 5, marginRight: 'auto' }}><Text style={{ color: 'white', marginLeft: 'auto', marginRight: 'auto', fontWeight: 'bold', textAlign: 'center' }} >Testimonials</Text></Button>
-              </View>
-
-
-            </View>
-          </Content>
-          <Footer />
-        </ImageBackground>
-      </Container>
-    );
-  }
-}
+import Home from './Home';
+import Offer from './Offer';
+import Offers from './Offers';
+import Accounts from './Accounts';
+//import Footer from './Footer.js';
+import Header from './Header';
 
 class Screen2 extends React.Component {
+
+
 
   render() {
     return (
@@ -180,34 +126,6 @@ class Screen5 extends React.Component {
   }
 }
 
-class Screen3 extends React.Component {
-
-  render() {
-    return (
-      <Container>
-        <Header />
-        <Content >
-          <Image source={require('./loan.jpg')} style={{ width: '100%', height: '80%' }} />
-          <View style={{
-            marginTop: 50,
-            marginLeft: 'auto',
-            marginRight: 'auto'
-          }}>
-            <Text style={{ fontSize: 16, textAlign: 'left' }}>Average Rates bases on Credit Score:</Text>
-            <Text style={{ fontSize: 16, textAlign: 'left' }}><Text style={{ fontWeight: 'bold' }}>Excellent</Text>   (720-850) 10.3% - 12.5%</Text>
-            <Text style={{ fontSize: 16, textAlign: 'left' }}><Text style={{ fontWeight: 'bold' }}>Good</Text>          (680-719) 13.5% - 15.5%</Text>
-            <Text style={{ fontSize: 16, textAlign: 'left' }}><Text style={{ fontWeight: 'bold' }}>Average</Text>     (640-679) 17.8% - 19.9%</Text>
-            <Text style={{ fontSize: 16, textAlign: 'left' }}><Text style={{ fontWeight: 'bold' }}>Poor</Text>            (300-639) 28.5% - 32.0%</Text>
-            <Button style={{ marginTop: 30, backgroundColor: '#00000000', width: 360, marginBottom: 15, borderWidth: 1, borderColor: '#00B35F' }}><Text style={{ fontWeight: 'bold', marginLeft: 'auto', marginRight: 'auto', color: '#00B35F' }}>Apply Now</Text></Button>
-            <Button style={{ backgroundColor: '#00B35F', width: 360, borderWidth: 1, borderColor: '#00B35F' }}><Text style={{ fontWeight: 'bold', marginLeft: 'auto', marginRight: 'auto' }}>Schedule Meeting</Text></Button>
-          </View>
-        </Content>
-        <Footer />
-      </Container>
-    );
-  }
-}
-
 class Screen7 extends React.Component {
 
   state = {
@@ -306,9 +224,10 @@ class Screen8 extends React.Component {
 class Screen9 extends React.Component {
 
   render() {
+
+    console.log(this.props);
     return (
       <Container>
-        <Header />
         <Content style={{ backgroundColor: '#C9C9C9' }}>
           <View style={{
             marginLeft: 'auto',
@@ -395,7 +314,7 @@ class Screen9 extends React.Component {
             <View style={{ backgroundColor: 'white', marginLeft: 10, marginRight: 10 }}>
               <View style={{ padding: 20, flexDirection: 'row' }}>
                 <View>
-                  <Text style={{ color: '#51A667', fontWeight: 'bold' }}>+ 18.75</Text>
+
                   <Text style={{fontWeight: 'bold'}} >Hiking Backpack</Text>
                 </View>
                 <Text style={{ marginLeft: 'auto', fontWeight: 'bold' }}>January 3, 2018</Text>
@@ -404,7 +323,7 @@ class Screen9 extends React.Component {
 
                <View style={{ padding: 20, flexDirection: 'row' }}>
                 <View>
-                  <Text style={{ color: '#51A667', fontWeight: 'bold' }}>+ 18.75</Text>
+
                   <Text style={{fontWeight: 'bold'}} >Hiking Backpack</Text>
                 </View>
                 <Text style={{ marginLeft: 'auto', fontWeight: 'bold' }}>January 3, 2018</Text>
@@ -413,7 +332,7 @@ class Screen9 extends React.Component {
 
                <View style={{ padding: 20, flexDirection: 'row' }}>
                 <View>
-                  <Text style={{ color: '#51A667', fontWeight: 'bold' }}>+ 18.75</Text>
+
                   <Text style={{fontWeight: 'bold'}} >Hiking Backpack</Text>
                 </View>
                 <Text style={{ marginLeft: 'auto', fontWeight: 'bold' }}>January 3, 2018</Text>
@@ -422,7 +341,7 @@ class Screen9 extends React.Component {
 
                <View style={{ padding: 20, flexDirection: 'row' }}>
                 <View>
-                  <Text style={{ color: '#51A667', fontWeight: 'bold' }}>+ 18.75</Text>
+
                   <Text style={{fontWeight: 'bold'}} >Hiking Backpack</Text>
                 </View>
                 <Text style={{ marginLeft: 'auto', fontWeight: 'bold' }}>January 3, 2018</Text>
@@ -431,7 +350,7 @@ class Screen9 extends React.Component {
 
                <View style={{ padding: 20, flexDirection: 'row' }}>
                 <View>
-                  <Text style={{ color: '#51A667', fontWeight: 'bold' }}>+ 18.75</Text>
+
                   <Text style={{fontWeight: 'bold'}} >Hiking Backpack</Text>
                 </View>
                 <Text style={{ marginLeft: 'auto', fontWeight: 'bold' }}>January 3, 2018</Text>
@@ -440,7 +359,7 @@ class Screen9 extends React.Component {
 
                <View style={{ padding: 20, flexDirection: 'row' }}>
                 <View>
-                  <Text style={{ color: '#51A667', fontWeight: 'bold' }}>+ 18.75</Text>
+
                   <Text style={{fontWeight: 'bold'}} >Hiking Backpack</Text>
                 </View>
                 <Text style={{ marginLeft: 'auto', fontWeight: 'bold' }}>January 3, 2018</Text>
@@ -449,7 +368,7 @@ class Screen9 extends React.Component {
 
                <View style={{ padding: 20, flexDirection: 'row' }}>
                 <View>
-                  <Text style={{ color: '#51A667', fontWeight: 'bold' }}>+ 18.75</Text>
+
                   <Text style={{fontWeight: 'bold'}} >Hiking Backpack</Text>
                 </View>
                 <Text style={{ marginLeft: 'auto', fontWeight: 'bold' }}>January 3, 2018</Text>
@@ -468,11 +387,86 @@ class Screen9 extends React.Component {
   }
 }
 
-export default createStackNavigator({
-  Home: {
-    screen: Screen9,
-    navigationOptions: {
-      header: null
-    }
+const offers = createStackNavigator({ Offers, Offer });
+
+export default createBottomTabNavigator({
+  accounts: {
+    screen: Accounts
+  },
+  offers,
+  home: {
+    screen: Home
   }
+}, {
+  tabBarPosition: 'bottom',
+  initialRouteName: 'home',
+  tabBarComponent: props => {
+
+    const index = props.navigation.state.index;
+    const navigate = props.navigation.navigate;
+
+    return (
+      <Footer>
+        <FooterTab style={styles.footerTab}>
+          <Button onPress={() => navigate('accounts', { name: 'Jane' })}
+            style={index === 0 ? styles.activeButton : null}
+            active={index === 0 ? true : false}>
+              <Icon name='ios-contacts-outline' style={styles.icon} />
+              <Text style={styles.footerTabText}>Accounts</Text>
+          </Button>
+          <Button onPress={() => navigate('offers', { name: 'Jane' })}
+            style={index === 1 ? styles.activeButton : null}
+            active={index === 1 ? true : false}>
+              <Icon name='ios-create-outline' style={styles.icon} />
+              <Text style={styles.footerTabText}>Offers</Text>
+          </Button>
+          <Button  onPress={() => navigate('home', { name: 'Jane' })}
+            style={index === 2 ? styles.activeButton : null}
+            active={index === 2 ? true : false}>
+              <Icon name="ios-home-outline" style={styles.icon}/>
+              <Text style={styles.footerTabText}>Home</Text>
+          </Button>
+          <Button onPress={() => navigate('dashboard', { name: 'Jane' })}
+            style={index === 3 ? styles.activeButton : null}
+            active={index === 3 ? true : false}>
+              <Icon name='ios-speedometer-outline' style={styles.icon} />
+              <Text style={styles.footerTabText}>Dashboard</Text>
+          </Button>
+          <Button onPress={() => navigate('contact', { name: 'Jane' })}
+            style={index === 4 ? styles.activeButton : null}
+            active={index === 4 ? true : false}>
+              <Icon name='ios-mail-outline' style={styles.icon} />
+              <Text style={styles.footerTabText}>Contact</Text>
+          </Button>
+        </FooterTab>
+      </Footer>
+    );
+  }
+});
+
+const styles = StyleSheet.create({
+  activeButton: {
+    borderRadius: 0,
+    backgroundColor: '#0D709F'
+  },
+  icon: {
+    color: 'white'
+  },
+  footerTab: {
+    backgroundColor: '#0F91CE'
+  },
+  footerTabButtonActive: {
+    borderRadius: 0,
+    backgroundColor: '#0D709F'
+  },
+  footerTabText: {
+    fontSize: 9,
+    color: 'white'
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

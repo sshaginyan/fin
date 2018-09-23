@@ -3,26 +3,30 @@ import { StyleSheet } from 'react-native';
 import{ Footer, FooterTab, Button, Text, Icon } from 'native-base';
 
 export default props => {
+
+  const { navigate } = props.navigation;
+  const routeName = props.navigation.state.routeName;
+
   return (
     <Footer>
       <FooterTab style={styles.footerTab}>
-        <Button style={props.active === 'accounts' ? styles.activeButton : null} active={props.active === 'accounts' ? true : false}>
+        <Button style={routeName === 'accounts' ? styles.activeButton : null} active={routeName === 'accounts' ? true : false}>
           <Icon name='ios-contacts-outline' style={styles.icon} />
           <Text style={styles.footerTabText}>Accounts</Text>
         </Button>
-        <Button style={props.active === 'offers' ? styles.activeButton : null} active={props.active === 'offers' ? true : false}>
+        <Button style={routeName === 'offers' ? styles.activeButton : null} active={routeName === 'offers' ? true : false}  onPress={() => navigate('offers', { name: 'Jane' }) }>
           <Icon name='ios-create-outline' style={styles.icon} />
           <Text style={styles.footerTabText}>Offers</Text>
         </Button>
-         <Button style={props.active === 'goals' ? styles.activeButton : null} active={props.active === 'goals' ? true : false}>
+        <Button style={routeName === 'home' ? styles.activeButton : null} active={routeName === 'home' ? true : false} onPress={() => navigate('home', { name: 'Jane' }) }>
           <Icon name="ios-home-outline" style={styles.icon}/>
           <Text style={styles.footerTabText}>Home</Text>
         </Button>
-        <Button style={props.active === 'dashboard' ? styles.activeButton : null} active={props.active === 'dashboard' ? true : false}>
+        <Button style={routeName === 'dashboard' ? styles.activeButton : null} active={routeName === 'dashboard' ? true : false}>
           <Icon name='ios-speedometer-outline' style={styles.icon} />
           <Text style={styles.footerTabText}>Dashboard</Text>
         </Button>
-        <Button style={props.active === 'contact' ? styles.activeButton : null} active={props.active === 'contact' ? true : false}>
+        <Button style={routeName === 'contact' ? styles.activeButton : null} active={routeName === 'contact' ? true : false}>
           <Icon name='ios-mail-outline' style={styles.icon} />
           <Text style={styles.footerTabText}>Contact</Text>
         </Button>

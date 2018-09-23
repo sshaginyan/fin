@@ -26,12 +26,11 @@ export default props => {
   return (
     <Header style={ props.main ? styles.main : styles.other }>
       <Left>
-        { leftIcon }
       </Left>
       <Body>
         <View style={{ flexDirection: 'row' }}>
           { titleIcon }
-          <Title style={styles.title}>Cumulus Bank</Title>
+          <Title style={styles.title}>{ props.title ? props.title : 'Cumulus Bank' }</Title>
         </View>
       </Body>
       <Right>
