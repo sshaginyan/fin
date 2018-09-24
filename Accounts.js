@@ -9,6 +9,7 @@ export default class Accounts extends React.Component {
   
   state = {
     data: [],
+    transactions: [],
     credit_card_lock: false
   }
 
@@ -16,8 +17,41 @@ export default class Accounts extends React.Component {
     const response = await fetch('https://cumulus-api-dev.herokuapp.com/api/v1/accounts/001f400000IIwu6AAD');
     const data = await response.json();
 
+    let trans = [];
+    let accounts = [];
+    let creditcards = [];
+
+    data.data.forEach(aa => {
+     let d = {};
+
+    d.name = aa.name;
+    d.lock = aa.lock;
+
+    if(aa.type == 'Credit Card') {
+      d.balance = aa.balance * -1;
+    } else {
+      d.balance = aa.balance;
+    }
+
+    accounts.push(d);
+
+      aa.transactions.forEach(bb => {
+        trans.push(bb)
+      })
+    });
+
+    trans = trans.sort((a,b) => {
+      if (a.date < b.date)
+        return 1;
+      if (a.date > b.date)
+        return -1;
+      return 0;
+    });
+
     this.setState({
-      data: data.data
+      data: data.data,
+      transactions: trans,
+      accounts: accounts
     });
     
   }
@@ -39,7 +73,39 @@ export default class Accounts extends React.Component {
               <Text style={{ color: 'white', fontSize: 20, textAlign: 'center', marginTop: 30 }}>Welcome back.</Text>
               <View style={{ marginTop: 50, backgroundColor: 'rgba(255, 255, 255, 0.7)', padding: 10, borderRadius: 10 }}>
                 <View style={{ flexDirection: 'row' }}>
-               
+                  <View>
+                  <View>
+                    <Text style={{ fontWeight: 'bold', color: '#333', fontSize: 16, textAlign: 'left' }}>Bank Accounts</Text>
+                    <Text style={{ color: '#333', fontSize: 14, textAlign: 'left' }}>Checkings: {this.state.checkings}</Text>
+                    <Text style={{ color: '#333', fontSize: 14, textAlign: 'left' }}>Savings: {this.state.savings}</Text>
+                    <View style={{ padding: 10, flexDirection: 'row' }}></View>
+                    <Text style={{ fontWeight: 'bold', color: '#333', fontSize: 16, textAlign: 'left' }}>Credit Cards</Text>
+                    <Text style={{ color: '#333', fontSize: 14, textAlign: 'left' }}>Credit Card: {this.state.credit_card}</Text>
+                    <FlipToggle
+                      value={this.state.credit_card_lock}
+                      buttonWidth={120}
+                      buttonHeight={24}
+                      buttonRadius={50}
+                      sliderWidth={20}
+                      sliderHeight={20}
+                      sliderRadius={50}
+                      onLabel={'locked'}
+                      offLabel={'unlocked'}
+                      labelStyle={{ color: 'black' }}
+                      buttonOffColor={'#5DC963'}
+                      buttonOnColor={'#EC584F'}
+                      sliderOnColor={'white'}
+                      sliderOffColor={'white'}
+
+                      onToggle={newState => {
+                        this.setState({
+                          credit_card_lock: newState
+                        });
+                      }} 
+                    />
+                  </View>
+
+                  </View>
                   <View style={{ marginLeft: 'auto', flexDirection: 'row' }}>
                     <View style={{ marginRight: 60 }}>
                       <Icon style={{ textAlign: 'center' }} name="git-compare" />
@@ -53,7 +119,16 @@ export default class Accounts extends React.Component {
                 </View>
                 <View style={{ marginTop: 20 }}>
                   <Text style={{ fontWeight: 'bold', color: '#333', fontSize: 16, textAlign: 'left' }}>Recent Transactions</Text>
-                 
+                  {
+                    this.state.transactions.map((data, index) => {
+                      return(
+                        <View key={index} style={{ flexDirection: 'row', marginTop: 8 }}>
+                          <Text style={{ color: '#333', fontSize: 14, textAlign: 'left' }}>{data.description}</Text>
+                          <Text style={{ color: '#333', fontSize: 14, marginLeft: 'auto' }}>{data.amount}</Text>
+                        </View>
+                      );
+                    })
+                  }
                 </View>
               </View>
             </View>
