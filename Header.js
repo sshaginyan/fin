@@ -15,10 +15,10 @@ export default props => {
                   <Icon name="menu" style={styles.icon} />
                 </Button>;
   } else {
-    leftIcon =  <Button transparent>
-                  <Icon name="ios-arrow-back" style={styles.icon} />
-                  <Text style={styles.icon}>Back</Text>
-                </Button>;
+    // leftIcon =  <Button transparent>
+    //               <Icon name="ios-arrow-back" style={styles.icon} />
+    //               <Text style={styles.icon}>Back</Text>
+    //             </Button>;
   }
 
 
@@ -26,6 +26,7 @@ export default props => {
   return (
     <Header style={ props.main ? styles.main : styles.other }>
       <Left>
+        { leftIcon }
       </Left>
       <Body>
         <View style={{ flexDirection: 'row' }}>
