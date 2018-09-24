@@ -1,5 +1,12 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
+    "name": "Cumulus Bank",
+    "icon": "cloud.png",
+    "version": "1.0.0",
+    "slug": "your-app-slug",
+    "sdkVersion": "27.0.0",
+    "ios": {
+      "bundleIdentifier": "com.heroku.cumulus"
+    }
   }
 }
