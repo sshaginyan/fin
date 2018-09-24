@@ -1,19 +1,46 @@
 import React from 'react';
 import * as shape from 'd3-shape';
-import { View } from 'react-native';
+import { View, Modal, TouchableOpacity } from 'react-native';
 import { StackedAreaChart } from 'react-native-svg-charts';
-import{ Container, Content, Button, Text, Footer } from 'native-base';
+import{ Container, Content, Button, Text, Input, Form, Item } from 'native-base';
+import * as Progress from 'react-native-progress';
+import DateTimePicker from 'react-native-modal-datetime-picker';
+
 
 import Header from './Header';
 
 export default class Dashboard extends React.Component {
 
+    state = {
+        goals: [],
+        date: '',
+        isDateTimePickerVisible: false
+    }
+
+    _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+    _handleDatePicked = date => {
+        this.setState({ date: date.toLocaleDateString("en-US") });
+        this._hideDateTimePicker();
+      };
+
+      _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+    
+   
+    async componentDidMount() {
+        const response = await fetch('https://cumulus-api-dev.herokuapp.com/api/v1/goals/owner/001f400000IIwu5AAD');
+        const data = await response.json();
+
+        this.setState({
+            goals: data.data
+        });
+
+    }
+
     render() {
   
-      console.log(this.props);
       return (
         <Container>
-            <Header title="FW Dashboard" />
+            <Header title="Goals" />
           <Content style={{ backgroundColor: '#C9C9C9' }}>
             <View style={{
               marginLeft: 'auto',
@@ -68,98 +95,85 @@ export default class Dashboard extends React.Component {
                 ] }
               >
   
-                <Button style={{ marginLeft: 'auto', marginTop: 'auto', marginBottom: 10, marginRight: 10, backgroundColor: 'transparent', borderWidth: 3, borderRadius: 0, borderColor: 'white' }}><Text style={{ fontSize: 12, fontWeight: 'bold' }}>Create New Goal</Text></Button>
-                {/* <Modal */}
-                {/*   animationType="slide" */}
-                {/*   transparent={true} */}
-                {/*   visible={true} */}
-                {/*   onRequestClose={() => { */}
-                {/*     alert('Modal has been closed.'); */}
-                {/*   }}> */}
-                {/*   <View style={{ backgroundColor: '#EDEDED', width: '92%', borderRadius: 10, marginLeft: 'auto', marginRight: 'auto', marginTop: 150 }}> */}
-                {/*     <View style={{ padding: 10 }}> */}
-                {/*       <Text>Create a new goal.-l</Text> */}
-                {/*     </View> */}
-                {/*   </View> */}
-                {/* </Modal> */}
-                <Text style={{ position: 'relative', top: 16, fontSize: 10, marginLeft: 'auto', color: 'white', marginRight: 10 }}>January 4, 2018 - March 31, 2018</Text>
+                <Button onPress={this._showDateTimePicker} style={{ marginLeft: 'auto', marginTop: 'auto', marginBottom: 10, marginRight: 10, backgroundColor: 'transparent', borderWidth: 3, borderRadius: 0, borderColor: 'white' }}><Text style={{ fontSize: 12, fontWeight: 'bold' }}>Create New Goal</Text></Button>
+                <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.isDateTimePickerVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+          <View style={{marginTop: 70, width: '80%', backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto', borderColor: '#0064FF', borderWidth: 5, borderRadius: 10, padding: 10 }}>
+            <View>
+              <Text style={{ textAlign: 'center', color: '#0e70a1', fontSize: 30 }}>Create a new goal</Text>
+              
+              <Form>
+                  <Item>
+                      <Input placeholder="Goal" />
+                    </Item>
+                  <Item><Input placeholder="Amount" /></Item>
+                  <Item style={{ padding: 20 }} last>
+                    <TouchableOpacity onPress={() => { this._showDateTimePicker(); }}>
+                    <Input placeholder="Goal Date"  value={this.state.date} />
+                    </TouchableOpacity>
+                  <DateTimePicker
+                    isVisible={this.state.isDateTimePickerVisible}
+                    onConfirm={this._handleDatePicked}
+                    onCancel={this._hideDateTimePicker}
+                  />      
+                      
+                      
+                </Item>
+              </Form>
+              
+
+              {/* <TouchableHighlight
+                onPress={() => {
+                  
+                }}>
+                <Text>Hide Modal</Text>
+              </TouchableHighlight> */}
+            </View>
+          </View>
+        </Modal>
   
   
-  
+                
   
   
   
   
               </StackedAreaChart>
-              <View style={{ backgroundColor: '#4FA665', width: '100%', height: 5 }}></View>
-              <View style={{ marginBottom: 10, flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginLeft: 'auto', marginRight: 'auto', height: 45, backgroundColor: 'white' }}>
-        <View style={{ alignSelf: 'flex-end', borderBottomWidth: 5, borderBottomColor: 'white' }}><Text style={{ paddingLeft: '10%', paddingRight: '10%', fontWeight: 'bold' }}>Goal</Text></View>
-        <View style={{ alignSelf: 'flex-end', borderBottomWidth: 5, borderBottomColor: '#4FA665' }}><Text style={{ paddingLeft: '10%', paddingRight: '10%', fontWeight: 'bold' }}>Note</Text></View>
-        <View style={{ alignSelf: 'flex-end', borderBottomWidth: 5, borderBottomColor: 'white' }}><Text style={{ paddingLeft: '10%', paddingRight: '10%', fontWeight: 'bold'  }}>Archived</Text></View>
-              </View>
-              <View style={{ backgroundColor: 'white', marginLeft: 10, marginRight: 10 }}>
-                <View style={{ padding: 20, flexDirection: 'row' }}>
-                  <View>
+             
+              <View style={{ backgroundColor: 'white', marginLeft: 10, marginRight: 10, marginTop: 20 }}>
+              
+               
+                {
+
+                    this.state.goals.map((goal, index) => {
+                        
+                        
+                        
+                        return (
+                            <View key={index}>
+                                <View style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 20, paddingBottom: 10, flexDirection: 'row' }}>
+                                    <View>
+                                        <Text style={{fontWeight: 'bold'}} >{goal.name}</Text>
+                                    </View>
+                                    <View style={{ marginLeft: 'auto' }}>
+                                        <Text>${goal.targetValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
+                                    </View>
+                                </View>
+                                <Progress.Bar progress={goal.actualValue/goal.targetValue} width={300} style={{ marginLeft: 20, marginBottom: 5 }} />
+                                <View style={{ backgroundColor: '#F4F4F4', height: 2, width: 260, marginLeft: 'auto', marginRight: 'auto' }}></View>
+                            </View>
+                        );
+                    })
+                }
+                
+               
   
-                    <Text style={{fontWeight: 'bold'}} >Hiking Backpack</Text>
-                  </View>
-                  <Text style={{ marginLeft: 'auto', fontWeight: 'bold' }}>January 3, 2018</Text>
-                </View>
-                <View style={{ backgroundColor: '#F4F4F4', height: 2, width: 360, marginLeft: 'auto', marginRight: 'auto' }}></View>
-  
-                 <View style={{ padding: 20, flexDirection: 'row' }}>
-                  <View>
-  
-                    <Text style={{fontWeight: 'bold'}} >Hiking Backpack</Text>
-                  </View>
-                  <Text style={{ marginLeft: 'auto', fontWeight: 'bold' }}>January 3, 2018</Text>
-                </View>
-                <View style={{ backgroundColor: '#F4F4F4', height: 2, width: 360, marginLeft: 'auto', marginRight: 'auto' }}></View>
-  
-                 <View style={{ padding: 20, flexDirection: 'row' }}>
-                  <View>
-  
-                    <Text style={{fontWeight: 'bold'}} >Hiking Backpack</Text>
-                  </View>
-                  <Text style={{ marginLeft: 'auto', fontWeight: 'bold' }}>January 3, 2018</Text>
-                </View>
-                <View style={{ backgroundColor: '#F4F4F4', height: 2, width: 360, marginLeft: 'auto', marginRight: 'auto' }}></View>
-  
-                 <View style={{ padding: 20, flexDirection: 'row' }}>
-                  <View>
-  
-                    <Text style={{fontWeight: 'bold'}} >Hiking Backpack</Text>
-                  </View>
-                  <Text style={{ marginLeft: 'auto', fontWeight: 'bold' }}>January 3, 2018</Text>
-                </View>
-                <View style={{ backgroundColor: '#F4F4F4', height: 2, width: 360, marginLeft: 'auto', marginRight: 'auto' }}></View>
-  
-                 <View style={{ padding: 20, flexDirection: 'row' }}>
-                  <View>
-  
-                    <Text style={{fontWeight: 'bold'}} >Hiking Backpack</Text>
-                  </View>
-                  <Text style={{ marginLeft: 'auto', fontWeight: 'bold' }}>January 3, 2018</Text>
-                </View>
-                <View style={{ backgroundColor: '#F4F4F4', height: 2, width: 360, marginLeft: 'auto', marginRight: 'auto' }}></View>
-  
-                 <View style={{ padding: 20, flexDirection: 'row' }}>
-                  <View>
-  
-                    <Text style={{fontWeight: 'bold'}} >Hiking Backpack</Text>
-                  </View>
-                  <Text style={{ marginLeft: 'auto', fontWeight: 'bold' }}>January 3, 2018</Text>
-                </View>
-                <View style={{ backgroundColor: '#F4F4F4', height: 2, width: 360, marginLeft: 'auto', marginRight: 'auto' }}></View>
-  
-                 <View style={{ padding: 20, flexDirection: 'row' }}>
-                  <View>
-  
-                    <Text style={{fontWeight: 'bold'}} >Hiking Backpack</Text>
-                  </View>
-                  <Text style={{ marginLeft: 'auto', fontWeight: 'bold' }}>January 3, 2018</Text>
-                </View>
-                <View style={{ backgroundColor: '#F4F4F4', height: 2, width: 360, marginLeft: 'auto', marginRight: 'auto' }}></View>
+                
   
   
   
@@ -167,7 +181,6 @@ export default class Dashboard extends React.Component {
               </View>
             </View>
           </Content>
-          <Footer />
         </Container>
       );
     }

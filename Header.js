@@ -22,7 +22,6 @@ export default props => {
   }
 
 
-
   return (
     <Header style={ props.main ? styles.main : styles.other }>
       <Left>
@@ -48,7 +47,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     alignSelf: 'center',
-    marginTop: 3
+    marginTop: 3,
+    width: 140
   },
   icon: {
     color: 'white'

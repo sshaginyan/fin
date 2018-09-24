@@ -15,7 +15,7 @@ export default class Offers extends React.Component {
         const navigation = this.props.navigation;
       return (
         <Container>
-          <Header />
+          <Header title="Offers" />
           <Content padder >
             <View style={{
               marginTop: 50,

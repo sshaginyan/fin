@@ -95,7 +95,7 @@ export default createBottomTabNavigator({
             style={index === 3 ? styles.activeButton : null}
             active={index === 3 ? true : false}>
               <Icon name='ios-speedometer-outline' style={styles.icon} />
-              <Text style={styles.footerTabText}>Dashboard</Text>
+              <Text style={styles.footerTabText}>Goals</Text>
           </Button>
           <Button onPress={() => navigate('contact', { name: 'Jane' })}
             style={index === 4 ? styles.activeButton : null}
