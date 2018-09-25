@@ -59,6 +59,8 @@ export default class Goal extends React.Component {
             }
           }).then((data) => {
             console.log(data);
+            const navigation = this.props.navigation;
+            navigation.pop();
           }).catch((error) => {
             console.log(error);
           });

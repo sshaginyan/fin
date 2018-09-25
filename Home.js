@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ImageBackground, Image, TouchableOpacity } from 'react-native';
-import{ Container, Content, Text } from 'native-base';
+import{ Container, Content, Text, Button } from 'native-base';
 
 import Header from './Header.js';
 
@@ -64,7 +64,6 @@ export default class Home extends React.Component {
               <Text style={{ color: 'white', fontSize: 30, textAlign: 'center' }}>Hi Claire!</Text>
               <Image source={require('./claire.png')} style={{ width: 200, height: 200, marginTop: 10, marginLeft: 'auto', marginRight: 'auto', }} />
               <Text style={{ color: 'white', fontSize: 20, textAlign: 'center', marginTop: 30 }}>Welcome back.</Text>
-
 
             <TouchableOpacity onPress={() => navigate('accounts') } >
                 <View  style={{ marginTop: 50, backgroundColor: 'rgba(255, 255, 255, 0.7)', padding: 10, borderRadius: 10 }}>

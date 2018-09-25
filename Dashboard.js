@@ -27,8 +27,7 @@ export default class Dashboard extends React.Component {
 
       _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
     
-   
-    async componentDidMount() {
+      abc = async () => {
         const response = await fetch('https://cumulus-api-dev.herokuapp.com/api/v1/goals/owner/001f400000IIwu5AAD');
         const data = await response.json();
 
@@ -39,6 +38,10 @@ export default class Dashboard extends React.Component {
             goals: data.data,
             rat
         });
+      }
+   
+    async componentDidMount() {
+      this.abc();
 
     }
 
@@ -48,7 +51,7 @@ export default class Dashboard extends React.Component {
   
       return (
         <Container>
-            <Header title="Goals" />
+            <Header title="Goals" fu={this.abc} />
           <Content style={{ backgroundColor: '#C9C9C9' }}>
             <View style={{
               marginLeft: 'auto',

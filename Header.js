@@ -34,7 +34,7 @@ export default props => {
         </View>
       </Body>
       <Right>
-        <Button transparent>
+        <Button transparent onPress={props.fu}>
           <Icon name='search' style={styles.icon} />
         </Button>
       </Right>

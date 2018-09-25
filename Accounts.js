@@ -15,7 +15,7 @@ export default class Accounts extends React.Component {
     accounts: []
   }
 
-  async componentDidMount() {
+  abc = async () => {
     const response = await fetch('https://cumulus-api-dev.herokuapp.com/api/v1/accounts/001f400000IIwu6AAD');
     const data = await response.json();
 
@@ -56,17 +56,19 @@ export default class Accounts extends React.Component {
       accounts: accounts,
       creditcards: creditcards
     });
+  }
+
+  async componentDidMount() {
     
+    this.abc();
   }
   
   render() {
 
-    console.log('==========', this.state.accounts);
-
     return (
       <Container>
         <ImageBackground source={require('./background.jpg')} style={{ height: '100%', width: '100%' }}>
-          <Header main={true} />
+          <Header main={true} fu={this.abc} />
           <Content padder >
             <View style={{
               marginTop: 50,
