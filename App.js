@@ -8,6 +8,7 @@ import { View, ImageBackground, Image, TouchableOpacity, Modal, TouchableHighlig
 import{ Container, Content, Button, Text, Icon, Form, Item, Input, Right, FooterTab, Footer } from 'native-base';
 
 import Home from './Home';
+import Goal from './Goal';
 import Offer from './Offer';
 import Offers from './Offers';
 import Contact from './Contact';
@@ -45,6 +46,29 @@ const offers = createStackNavigator({
   }
 });
 
+const dashboard = createStackNavigator({
+  dashboard: {
+    screen: Dashboard,
+    navigationOptions: {
+      header: null
+    }
+  },
+  goal: {
+    screen: Goal,
+    navigationOptions: {
+      title: 'Goal',
+      headerStyle: {
+        backgroundColor: '#0f92d0',
+      },
+      headerTintColor: 'white',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+      headerRight: <Ri />
+    }
+  }
+});
+
 export default createBottomTabNavigator({
   accounts: {
     screen: Accounts
@@ -53,9 +77,7 @@ export default createBottomTabNavigator({
   home: {
     screen: Home
   },
-  dashboard: {
-    screen: Dashboard
-  },
+  dashboard: dashboard,
   contact: {
     screen: Contact
   },

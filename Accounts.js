@@ -10,7 +10,9 @@ export default class Accounts extends React.Component {
   state = {
     data: [],
     transactions: [],
-    credit_card_lock: false
+    credit_card_lock: false,
+    creditcards: [],
+    accounts: []
   }
 
   async componentDidMount() {
@@ -25,15 +27,15 @@ export default class Accounts extends React.Component {
      let d = {};
 
     d.name = aa.name;
-    d.lock = aa.lock;
 
     if(aa.type == 'Credit Card') {
+      d.lock = aa.lock;
       d.balance = aa.balance * -1;
-    } else {
+      creditcards.push(d)
+    } else if(aa.type != 'Mutual Fund') {
       d.balance = aa.balance;
+      accounts.push(d);
     }
-
-    accounts.push(d);
 
       aa.transactions.forEach(bb => {
         trans.push(bb)
@@ -51,12 +53,16 @@ export default class Accounts extends React.Component {
     this.setState({
       data: data.data,
       transactions: trans,
-      accounts: accounts
+      accounts: accounts,
+      creditcards: creditcards
     });
     
   }
   
   render() {
+
+    console.log('==========', this.state.accounts);
+
     return (
       <Container>
         <ImageBackground source={require('./background.jpg')} style={{ height: '100%', width: '100%' }}>
@@ -76,38 +82,52 @@ export default class Accounts extends React.Component {
                   <View>
                   <View>
                     <Text style={{ fontWeight: 'bold', color: '#333', fontSize: 16, textAlign: 'left' }}>Bank Accounts</Text>
-                    <Text style={{ color: '#333', fontSize: 14, textAlign: 'left' }}>Checkings: {this.state.checkings}</Text>
-                    <Text style={{ color: '#333', fontSize: 14, textAlign: 'left' }}>Savings: {this.state.savings}</Text>
+                      {
+                        this.state.accounts.map((data, index) => {
+                          return <Text key={index} style={{ color: '#333', fontSize: 14, textAlign: 'left' }}>{data.name}: ${data.balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>;
+                        })
+                      }
                     <View style={{ padding: 10, flexDirection: 'row' }}></View>
                     <Text style={{ fontWeight: 'bold', color: '#333', fontSize: 16, textAlign: 'left' }}>Credit Cards</Text>
-                    <Text style={{ color: '#333', fontSize: 14, textAlign: 'left' }}>Credit Card: {this.state.credit_card}</Text>
-                    <FlipToggle
-                      value={this.state.credit_card_lock}
-                      buttonWidth={120}
-                      buttonHeight={24}
-                      buttonRadius={50}
-                      sliderWidth={20}
-                      sliderHeight={20}
-                      sliderRadius={50}
-                      onLabel={'locked'}
-                      offLabel={'unlocked'}
-                      labelStyle={{ color: 'black' }}
-                      buttonOffColor={'#5DC963'}
-                      buttonOnColor={'#EC584F'}
-                      sliderOnColor={'white'}
-                      sliderOffColor={'white'}
+                    
+                    {
+                      this.state.creditcards.map((data, index) => {
+                        return(
+                          <View key={index}>
+                            <Text style={{ color: '#333', fontSize: 14, textAlign: 'left' }}>{data.name}: {data.balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace('-', '-$')}</Text>
+                            <FlipToggle
+                              value={this.state.credit_card_lock}
+                              buttonWidth={120}
+                              buttonHeight={24}
+                              buttonRadius={50}
+                              sliderWidth={20}
+                              sliderHeight={20}
+                              sliderRadius={50}
+                              onLabel={'locked'}
+                              offLabel={'unlocked'}
+                              labelStyle={{ color: 'black' }}
+                              buttonOffColor={'#5DC963'}
+                              buttonOnColor={'#EC584F'}
+                              sliderOnColor={'white'}
+                              sliderOffColor={'white'}
 
-                      onToggle={newState => {
-                        this.setState({
-                          credit_card_lock: newState
-                        });
-                      }} 
-                    />
+                              onToggle={newState => {
+                                this.setState({
+                                  credit_card_lock: newState
+                                });
+                              }} 
+                            />
+                          </View>
+                        );
+                      })
+                    }
+                    
+                    
                   </View>
 
                   </View>
                   <View style={{ marginLeft: 'auto', flexDirection: 'row' }}>
-                    <View style={{ marginRight: 60 }}>
+                    <View style={{ marginRight: 20 }}>
                       <Icon style={{ textAlign: 'center' }} name="git-compare" />
                       <Text>Transfer</Text>
                     </View>
